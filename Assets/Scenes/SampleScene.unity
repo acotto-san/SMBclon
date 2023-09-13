@@ -131,9 +131,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8894270680886561763, guid: 79e9eb6748f9a054cbebdb7d3dc7626e, type: 3}
+      propertyPath: m_AutoTiling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8894270680886561763, guid: 79e9eb6748f9a054cbebdb7d3dc7626e, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 18.574999
+      objectReference: {fileID: 0}
+    - target: {fileID: 427750785626960942, guid: 79e9eb6748f9a054cbebdb7d3dc7626e, type: 3}
+      propertyPath: m_Size.x
+      value: 18.574999
+      objectReference: {fileID: 0}
     - target: {fileID: 3811930605274556569, guid: 79e9eb6748f9a054cbebdb7d3dc7626e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.2125
       objectReference: {fileID: 0}
     - target: {fileID: 3811930605274556569, guid: 79e9eb6748f9a054cbebdb7d3dc7626e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -192,6 +204,7 @@ GameObject:
   - component: {fileID: 198073076}
   - component: {fileID: 198073078}
   - component: {fileID: 198073075}
+  - component: {fileID: 198073079}
   m_Layer: 0
   m_Name: Mario
   m_TagString: Untagged
@@ -211,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a630f6eaefaf5e8479a322e7fbfd3f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.001
+  speed: 2
 --- !u!212 &198073076
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -305,7 +318,42 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!70 &198073079
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198073074}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000047244262, y: 0.03686441}
+  m_Size: {x: 0.7573534, y: 0.067913644}
+  m_Direction: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
