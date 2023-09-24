@@ -203,8 +203,8 @@ GameObject:
   - component: {fileID: 198073077}
   - component: {fileID: 198073076}
   - component: {fileID: 198073078}
-  - component: {fileID: 198073075}
   - component: {fileID: 198073079}
+  - component: {fileID: 198073075}
   m_Layer: 0
   m_Name: Mario
   m_TagString: Untagged
@@ -328,7 +328,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 198073074}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 93ad41378048e9542949fa790edd0d7c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
