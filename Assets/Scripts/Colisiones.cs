@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Colisiones : MonoBehaviour
 {
+    public bool isGrounded;
+    public Transform groundCheck;
+    public float groundCheckRadius;
+    public LayerMask groundLayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,22 +20,16 @@ public class Colisiones : MonoBehaviour
         
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if(collision.gameObject.CompareTag("Pipe"))
-    //        Debug.Log("Collision ENTER: " + collision.gameObject.name);   
-    //}   
+    private void FixedUpdate()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,groundLayer);
+    }
 
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    //Debug.Log("Collision Stay: " + collision.gameObject.name);
-    //}
-
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Pipe"))
-    //        Debug.Log("Collision EXIT: " + collision.gameObject.name);
-    //}   
+    public bool Grounded()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        return isGrounded;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
