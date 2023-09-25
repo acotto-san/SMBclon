@@ -7,15 +7,19 @@ public class Mover : MonoBehaviour
 {
 
     enum Direction { Left = -1, None = 0, Right = 1 };
-
     Direction currentDirection = Direction.None;
 
     public float speed;
-    // Start is called before the first frame update
+    public float acceleration;
+    public float maxVelocity;
+
     Rigidbody2D rb2D;
+    Colisiones colisiones;
+
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        colisiones = GetComponent<Colisiones>();
     }
 
     // Update is called once per frame
@@ -39,12 +43,21 @@ public class Mover : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 velocity = new Vector2((int)currentDirection * speed, rb2D.velocity.y);
+        Vector2 forceAcceleration = new Vector2((int)currentDirection * acceleration, 0f);
+        rb2D.AddForce(forceAcceleration);
+        float velocityX = Mathf.Clamp(rb2D.velocity.x, -maxVelocity, maxVelocity);
+
+
+        Vector2 velocity = new Vector2(velocityX, rb2D.velocity.y);
         rb2D.velocity = velocity;
     }
     void Jump()
     {
-        Vector2 fuerza = new Vector2(0, 10f);
-        rb2D.AddForce(fuerza, ForceMode2D.Impulse);
+        if (colisiones.Grounded())
+        {
+            Vector2 fuerza = new Vector2(0, 10f);
+            rb2D.AddForce(fuerza, ForceMode2D.Impulse);
+        }
+
     }
 }
