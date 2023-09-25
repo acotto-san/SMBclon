@@ -12,6 +12,8 @@ public class Mover : MonoBehaviour
     public float speed;
     public float acceleration;
     public float maxVelocity;
+    public float friction;
+    float currentVelocity = 0;
 
     Rigidbody2D rb2D;
     Colisiones colisiones;
@@ -43,12 +45,57 @@ public class Mover : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 forceAcceleration = new Vector2((int)currentDirection * acceleration, 0f);
-        rb2D.AddForce(forceAcceleration);
-        float velocityX = Mathf.Clamp(rb2D.velocity.x, -maxVelocity, maxVelocity);
+        //Vector2 forceAcceleration = new Vector2((int)currentDirection * acceleration, 0f);
+        //rb2D.AddForce(forceAcceleration);
+        //float velocityX = Mathf.Clamp(rb2D.velocity.x, -maxVelocity, maxVelocity);
 
 
-        Vector2 velocity = new Vector2(velocityX, rb2D.velocity.y);
+        //Vector2 velocity = new Vector2(velocityX, rb2D.velocity.y);
+        //rb2D.velocity = velocity;
+
+        currentVelocity = rb2D.velocity.x;
+        if(currentDirection > 0) // si el input es hacia la der
+        {
+            if(currentVelocity < 0) //pero la velocidad esta en direccion izq
+            {
+                //entonces para llevarla al sentido inverso se le agrega puntos de aceleración y fricción
+                currentVelocity += (acceleration + friction) * Time.deltaTime; 
+            }
+            else if(currentVelocity < maxVelocity) // en caso de la velocidad no es hacia izq y menor al limite
+            {
+                //se agrega solo aceleracion ya que friccion no se quiere 
+                currentVelocity += acceleration * Time.deltaTime;
+            }
+
+        }
+        else if(currentDirection < 0) //si el input es hacia la izq
+        {
+            if (currentVelocity > 0) 
+            { 
+                //para llevar la velocidad al lado opueso esta vez es una reducción de velocidad
+                currentVelocity -= (acceleration + friction) * Time.deltaTime;  
+            }
+            else if(currentVelocity > -maxVelocity)
+            {
+                currentVelocity -= acceleration * Time.deltaTime;
+            }
+        }
+        else //si no hay input de direccion hay que ir frenandolo si se esta moviendo
+        {
+            if(currentVelocity > 1f) //reduce velocidad si esta yendo a izq
+            {
+                currentVelocity -= friction * Time.deltaTime;
+            }
+            else if(currentVelocity < -1f)
+            {
+                currentVelocity += friction * Time.deltaTime;
+            }
+            else
+            {
+                currentVelocity = 0;
+            }
+        }
+        Vector2 velocity = new Vector2(currentVelocity,rb2D.velocity.y);
         rb2D.velocity = velocity;
     }
     void Jump()
