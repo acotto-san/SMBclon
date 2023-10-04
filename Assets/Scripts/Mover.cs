@@ -15,18 +15,61 @@ public class Mover : MonoBehaviour
     public float friction;
     float currentVelocity = 0;
 
+    public float jumpForce;
+    public float maxJumpingTime = 1f;
+    public bool isJumping;
+    float jumpTimer = 0f;
+    float defaultGravity;
+
     Rigidbody2D rb2D;
     Colisiones colisiones;
 
-    void Start()
+    void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
         colisiones = GetComponent<Colisiones>();
+
+    }
+
+    private void Start()
+    {
+        defaultGravity = rb2D.gravityScale;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isJumping)
+        {
+            if(rb2D.velocity.y < 0f)
+            {
+                //como ya está cayendo entonces restablecer gravedad
+                rb2D.gravityScale = defaultGravity;
+                if (colisiones.Grounded())
+                {
+                    //como ya está tocando ground entonces dejó de saltar
+                    isJumping = false;
+                    jumpTimer = 0;
+                }   
+            }
+            else if (rb2D.velocity.y > 0f)
+            {
+                 if (Input.GetKey(KeyCode.Space))
+                 {
+                     //ya que está con la barra presionada empezar a contar segundos
+                     jumpTimer = Time.deltaTime;
+                 }
+                 if (Input.GetKeyUp(KeyCode.Space))
+                 {
+                     // como dejó de saltar evaluemos cuanto tiempo salto
+                     if (jumpTimer < maxJumpingTime)
+                     {
+                         //ya que saltó menos del tiempo esperado aplicar gravedad
+                         rb2D.gravityScale = defaultGravity * 3f;
+                     }
+                 }
+            }
+        }
         currentDirection = Direction.None;
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -100,9 +143,10 @@ public class Mover : MonoBehaviour
     }
     void Jump()
     {
-        if (colisiones.Grounded())
+        if (colisiones.Grounded() && !isJumping)
         {
-            Vector2 fuerza = new Vector2(0, 10f);
+            isJumping = true;
+            Vector2 fuerza = new Vector2(0, jumpForce);
             rb2D.AddForce(fuerza, ForceMode2D.Impulse);
         }
 
