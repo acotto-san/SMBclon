@@ -17,7 +17,8 @@ public class Mover : MonoBehaviour
 
     public float jumpForce;
     public float maxJumpingTime = 1f;
-    public bool isJumping;
+    public bool isJumping = false;
+    [SerializeField]
     float jumpTimer = 0f;
     float defaultGravity;
 
@@ -57,7 +58,7 @@ public class Mover : MonoBehaviour
                  if (Input.GetKey(KeyCode.Space))
                  {
                      //ya que está con la barra presionada empezar a contar segundos
-                     jumpTimer = Time.deltaTime;
+                     jumpTimer += Time.deltaTime;
                  }
                  if (Input.GetKeyUp(KeyCode.Space))
                  {
@@ -65,7 +66,7 @@ public class Mover : MonoBehaviour
                      if (jumpTimer < maxJumpingTime)
                      {
                          //ya que saltó menos del tiempo esperado aplicar gravedad
-                         rb2D.gravityScale = defaultGravity * 3f;
+                         rb2D.gravityScale = defaultGravity * 5f;
                      }
                  }
             }

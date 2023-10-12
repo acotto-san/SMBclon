@@ -316,11 +316,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   acceleration: 10
-  maxVelocity: 8
+  maxVelocity: 15
   friction: 14
   jumpForce: 16
-  maxJumpingTime: 12
+  maxJumpingTime: 0.3
   isJumping: 0
+  jumpTimer: 0
 --- !u!212 &198073076
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -404,7 +405,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 93ad41378048e9542949fa790edd0d7c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
